@@ -304,10 +304,13 @@
       minDate = dates[0];
       maxDate = dates[dates.length - 1];
       document.getElementById('dataRange').textContent = `${fmt(minDate)} ~ ${fmt(maxDate)}`;
-      document.getElementById('dateFrom').value = minDate;
-      document.getElementById('dateTo').value = maxDate;
+      document.getElementById('dateFrom').value = '';
+      document.getElementById('dateTo').value = '';
     }
-    applyFilter();
+    // 기본 상태: 안 보이게
+    document.getElementById('totalKills').textContent = '-';
+    document.getElementById('leaderboard').innerHTML =
+      '<div class="empty-state">기간을 선택하고 조회 버튼을 눌러주세요.</div>';
   }
 
   function fmt(d) {
