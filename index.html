@@ -68,10 +68,11 @@
     /* ── 날짜 필터 ── */
     .filter-section {
       background:var(--bg2); border:1px solid var(--border); border-radius:2px;
-      padding:24px 28px; margin:32px 0;
-      display:flex; flex-wrap:wrap; align-items:flex-end; gap:20px;
+      padding:24px 20px; margin:32px 0;
+      display:flex; flex-wrap:wrap; align-items:flex-end; gap:16px;
+      box-sizing:border-box; overflow:hidden;
     }
-    .filter-group { display:flex; flex-direction:column; gap:8px; flex:1; min-width:140px; }
+    .filter-group { display:flex; flex-direction:column; gap:8px; flex:1; min-width:0; width:100%; box-sizing:border-box; }
     .filter-group label { font-size:10px; letter-spacing:3px; color:var(--gold); text-transform:uppercase; }
     .filter-group input[type="date"],
     .filter-group input[type="text"] {
@@ -212,8 +213,12 @@
     .divider { width:40px; height:1px; background:var(--border); margin:32px auto; }
     footer { text-align:center; padding:40px 20px 60px; color:var(--text-dim); font-size:11px; letter-spacing:2px; border-top:1px solid var(--border); margin-top:40px; }
 
-    @media(max-width:540px){
-      .filter-section{padding:20px 16px;}
+    @media(max-width:600px){
+      .filter-section{ padding:16px; flex-direction:column; align-items:stretch; }
+      .filter-group { flex:none; width:100%; }
+      .filter-group input[type="date"] { width:100%; font-size:16px; }
+      .btn-group { width:100%; }
+      .btn-apply, .btn-reset { flex:1; text-align:center; }
       .rank-item{grid-template-columns:40px 1fr auto;padding:14px;}
       .rank-kills{font-size:22px;}
       .rank-item[data-rank="1"] .rank-kills{font-size:26px;}
