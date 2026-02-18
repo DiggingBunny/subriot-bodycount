@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>섭라 존윅 킬 카운터</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet" />
+  <script src="chatdata.js"></script>
+  <style>
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #f0c96a;
+      --red: #b02020;
+      --red-bright: #e03030;
+      --bg: #0a0a0b;
+      --bg2: #111114;
+      --bg3: #18181d;
+      --text: #e8e4d8;
+      --text-dim: #7a7770;
+      --border: #2a2820;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      background:var(--bg); color:var(--text);
+      font-family:'Noto Sans KR',sans-serif;
+      min-height:100vh; overflow-x:hidden;
+    }
+    body::before {
+      content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+      background:
+        radial-gradient(ellipse 60% 40% at 50% -10%,rgba(180,140,40,.12) 0%,transparent 70%),
+        radial-gradient(ellipse 40% 30% at 80% 100%,rgba(150,20,20,.10) 0%,transparent 60%);
+    }
+    body::after {
+      content:''; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.5;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    }
+    .container { position:relative; z-index:1; max-width:860px; margin:0 auto; padding:0 20px; }
+
+    /* ── 헤더 ── */
+    header { text-align:center; padding:60px 20px 40px; }
+    .header-line { width:100px; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); margin:0 auto 28px; }
+    h1 {
+      font-family:'Black Han Sans',sans-serif;
+      font-size:clamp(32px,8vw,64px);
+      letter-spacing:-1px; line-height:1.1;
+      background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,#8a6820 100%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+      margin-bottom:28px;
+      animation:titleGlow 3s ease-in-out infinite alternate;
+    }
+    @keyframes titleGlow {
+      from { filter:drop-shadow(0 0 8px rgba(201,168,76,.3)); }
+      to   { filter:drop-shadow(0 0 20px rgba(201,168,76,.6)); }
+    }
+    .header-meta { display:flex; flex-direction:column; align-items:center; gap:10px; }
+    .badge {
+      display:inline-flex; align-items:center; gap:8px;
+      background:var(--bg3); border:1px solid var(--border); border-radius:2px;
+      padding:6px 16px; font-size:11px; color:var(--text-dim); letter-spacing:1px;
+    }
+    .badge .dot { width:6px; height:6px; border-radius:50%; background:var(--gold); animation:pulse 2s ease-in-out infinite; }
+    .badge .label { color:var(--gold); opacity:.7; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+
+    /* ── 날짜 필터 ── */
+    .filter-section {
+      background:var(--bg2); border:1px solid var(--border); border-radius:2px;
+      padding:24px 28px; margin:32px 0;
+      display:flex; flex-wrap:wrap; align-items:flex-end; gap:20px;
+    }
+    .filter-group { display:flex; flex-direction:column; gap:8px; flex:1; min-width:140px; }
+    .filter-group label { font-size:10px; letter-spacing:3px; color:var(--gold); text-transform:uppercase; }
+    .filter-group input[type="date"] {
+      background:var(--bg3); border:1px solid var(--border); color:var(--text);
+      padding:10px 14px; font-family:'Noto Sans KR',sans-serif; font-size:14px;
+      border-radius:2px; outline:none; width:100%; cursor:pointer;
+      transition:border-color .2s; color-scheme:dark;
+    }
+    .filter-group input[type="date"]:hover,
+    .filter-group input[type="date"]:focus { border-color:var(--gold); }
+    .btn-group { display:flex; gap:10px; }
+    .btn-apply {
+      background:var(--gold); color:#0a0a0b; border:none;
+      padding:10px 24px; font-family:'Black Han Sans',sans-serif;
+      font-size:14px; letter-spacing:1px; border-radius:2px; cursor:pointer;
+      transition:all .2s; white-space:nowrap;
+    }
+    .btn-apply:hover { background:var(--gold-light); transform:translateY(-1px); }
+    .btn-reset {
+      background:transparent; color:var(--text-dim); border:1px solid var(--border);
+      padding:10px 16px; font-family:'Noto Sans KR',sans-serif; font-size:13px;
+      border-radius:2px; cursor:pointer; transition:all .2s; white-space:nowrap;
+    }
+    .btn-reset:hover { border-color:var(--text-dim); color:var(--text); }
+    .quick-filters { display:flex; gap:8px; flex-wrap:wrap; width:100%; }
+    .quick-btn {
+      background:transparent; color:var(--text-dim); border:1px solid var(--border);
+      padding:4px 12px; font-size:11px; border-radius:2px; cursor:pointer;
+      transition:all .2s; font-family:'Noto Sans KR',sans-serif; letter-spacing:.5px;
+    }
+    .quick-btn:hover, .quick-btn.active { border-color:var(--gold); color:var(--gold); }
+
+    /* ── 총 킬 카운트 ── */
+    .total-kills { text-align:center; padding:20px 0 32px; }
+    .total-label { font-size:10px; letter-spacing:4px; color:var(--text-dim); text-transform:uppercase; margin-bottom:8px; }
+    .total-number {
+      font-family:'Black Han Sans',sans-serif; font-size:clamp(40px,10vw,80px);
+      color:var(--red-bright); line-height:1;
+      text-shadow:0 0 40px rgba(200,40,40,.4);
+    }
+    .total-unit { font-size:18px; color:var(--text-dim); margin-left:4px; }
+
+    /* ── 섹션 헤더 ── */
+    .section-header { display:flex; align-items:center; gap:16px; margin-bottom:20px; }
+    .section-title { font-family:'Black Han Sans',sans-serif; font-size:16px; letter-spacing:2px; color:var(--gold); }
+    .section-line { flex:1; height:1px; background:var(--border); }
+
+    /* ── 리더보드 ── */
+    .leaderboard { display:flex; flex-direction:column; gap:10px; margin-bottom:40px; }
+    .rank-item {
+      background:var(--bg2); border:1px solid var(--border); border-radius:2px;
+      padding:16px 20px; display:grid; grid-template-columns:48px 1fr auto;
+      align-items:center; gap:16px; position:relative; overflow:hidden;
+      transition:border-color .2s, transform .2s;
+      animation:slideIn .4s ease both;
+    }
+    .rank-item:hover { border-color:var(--gold); transform:translateX(4px); }
+    @keyframes slideIn { from{opacity:0;transform:translateX(-20px)} to{opacity:1;transform:translateX(0)} }
+    .rank-item .kill-bar {
+      position:absolute; left:0; top:0; bottom:0;
+      background:linear-gradient(90deg,rgba(201,168,76,.08),transparent);
+      transition:width .8s cubic-bezier(.22,1,.36,1); pointer-events:none;
+    }
+    .rank-item[data-rank="1"] { border-color:var(--gold); background:linear-gradient(135deg,rgba(201,168,76,.08) 0%,var(--bg2) 60%); }
+    .rank-item[data-rank="1"] .kill-bar { background:linear-gradient(90deg,rgba(201,168,76,.15),transparent); }
+    .rank-item[data-rank="2"] { border-color:#6a8aaa; }
+    .rank-item[data-rank="3"] { border-color:#9a6840; }
+    .rank-number { font-family:'Black Han Sans',sans-serif; font-size:24px; text-align:center; position:relative; }
+    .rank-item[data-rank="1"] .rank-number { color:var(--gold); font-size:28px; }
+    .rank-item[data-rank="2"] .rank-number { color:#8aaac8; }
+    .rank-item[data-rank="3"] .rank-number { color:#c28850; }
+    .rank-crown { display:block; font-size:14px; line-height:1; }
+    .rank-info { display:flex; flex-direction:column; gap:4px; }
+    .rank-name { font-size:16px; font-weight:700; color:var(--text); }
+    .rank-item[data-rank="1"] .rank-name { font-size:18px; color:var(--gold-light); }
+    .rank-bar-wrap { margin-top:6px; height:3px; background:var(--border); border-radius:1px; overflow:hidden; }
+    .rank-bar-fill {
+      height:100%; background:linear-gradient(90deg,var(--gold),var(--gold-light));
+      border-radius:1px; width:0; transition:width 1s cubic-bezier(.22,1,.36,1);
+    }
+    .rank-item[data-rank="2"] .rank-bar-fill { background:linear-gradient(90deg,#6a8aaa,#9ab8d0); }
+    .rank-item[data-rank="3"] .rank-bar-fill { background:linear-gradient(90deg,#9a6840,#c28850); }
+    .rank-kills { font-family:'Black Han Sans',sans-serif; font-size:28px; color:var(--red-bright); text-align:right; white-space:nowrap; }
+    .rank-kills-unit { font-size:12px; color:var(--text-dim); font-family:'Noto Sans KR',sans-serif; font-weight:300; }
+    .rank-item[data-rank="1"] .rank-kills { font-size:34px; text-shadow:0 0 20px rgba(200,40,40,.5); }
+
+    /* ── 랜덤 킬 현장 ── */
+    .random-card {
+      background:var(--bg2); border:1px solid var(--border); border-radius:2px;
+      padding:32px 28px; text-align:center;
+      display:flex; flex-direction:column; align-items:center; gap:16px;
+      position:relative; overflow:hidden;
+      transition:opacity .3s;
+    }
+    .random-card::before {
+      content:'"'; position:absolute; top:-10px; left:16px;
+      font-size:80px; color:var(--border); font-family:Georgia,serif; line-height:1; pointer-events:none;
+    }
+    .random-killer {
+      font-family:'Black Han Sans',sans-serif; font-size:22px; color:var(--gold-light);
+    }
+    .random-message-box {
+      background:var(--bg3); border:1px solid var(--border); border-radius:2px;
+      padding:14px 20px; font-size:17px; color:var(--text); width:100%; text-align:center;
+      font-weight:700; line-height:1.6;
+    }
+    .random-arrow {
+      font-size:22px; color:var(--red-bright);
+      text-shadow:0 0 12px rgba(200,40,40,.5);
+    }
+    .random-exited { font-size:13px; color:var(--text-dim); letter-spacing:1px; }
+    .random-exited .exited-name { color:#e8e4d8; }
+    .random-meta { font-size:11px; color:var(--text-dim); letter-spacing:1px; }
+    .placeholder-text { font-size:14px; color:var(--text-dim); padding:20px 0; }
+    .btn-random {
+      background:transparent; color:var(--gold); border:1px solid var(--gold);
+      padding:10px 28px; font-family:'Black Han Sans',sans-serif;
+      font-size:14px; letter-spacing:2px; border-radius:2px; cursor:pointer;
+      transition:all .2s; margin-top:8px;
+    }
+    .btn-random:hover { background:var(--gold); color:var(--bg); transform:translateY(-1px); }
+    .btn-random:active { transform:scale(.97); }
+
+    .empty-state { text-align:center; padding:60px 20px; color:var(--text-dim); font-size:14px; letter-spacing:1px; }
+    .divider { width:40px; height:1px; background:var(--border); margin:32px auto; }
+    footer { text-align:center; padding:40px 20px 60px; color:var(--text-dim); font-size:11px; letter-spacing:2px; border-top:1px solid var(--border); margin-top:40px; }
+
+    @media(max-width:540px){
+      .filter-section{padding:20px 16px;}
+      .rank-item{grid-template-columns:40px 1fr auto;padding:14px;}
+      .rank-kills{font-size:22px;}
+      .rank-item[data-rank="1"] .rank-kills{font-size:26px;}
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- 헤더 -->
+  <header>
+    <div class="header-line"></div>
+    <h1>섭라 존윅<br>킬 카운터</h1>
+    <div class="header-meta">
+      <div class="badge">
+        <span class="dot"></span>
+        <span id="updatedAt">데이터 로딩 중...</span>
+      </div>
+      <div class="badge">
+        <span class="label">데이터 기간&nbsp;</span>
+        <span id="dataRange">로딩 중...</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 날짜 필터 -->
+  <section class="filter-section">
+    <div class="filter-group">
+      <label>시작일</label>
+      <input type="date" id="dateFrom" />
+    </div>
+    <div class="filter-group">
+      <label>종료일</label>
+      <input type="date" id="dateTo" />
+    </div>
+    <div class="btn-group">
+      <button class="btn-apply" onclick="applyFilter()">조회</button>
+      <button class="btn-reset" onclick="resetFilter()">전체</button>
+    </div>
+    <div class="quick-filters">
+      <button class="quick-btn" onclick="setQuick(7,this)">최근 7일</button>
+      <button class="quick-btn" onclick="setQuick(30,this)">최근 30일</button>
+      <button class="quick-btn" onclick="setQuick(90,this)">최근 3개월</button>
+      <button class="quick-btn" onclick="setThisMonth(this)">이번 달</button>
+      <button class="quick-btn" onclick="setLastMonth(this)">지난 달</button>
+    </div>
+  </section>
+
+  <!-- 총 킬 -->
+  <div class="total-kills">
+    <p class="total-label">조회 기간 총 킬 수</p>
+    <div>
+      <span class="total-number" id="totalKills">0</span>
+      <span class="total-unit">킬</span>
+    </div>
+  </div>
+
+  <!-- 리더보드 -->
+  <div class="section-header">
+    <span class="section-title">🏆 킬 순위</span>
+    <div class="section-line"></div>
+    <span style="font-size:11px;color:var(--text-dim);letter-spacing:1px;">TOP 10</span>
+  </div>
+  <div class="leaderboard" id="leaderboard">
+    <div class="empty-state">데이터를 불러오는 중...</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 랜덤 킬 현장 -->
+  <section>
+    <div class="section-header">
+      <span class="section-title">🎲 랜덤 킬 현장</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="random-card" id="randomCard">
+      <p class="placeholder-text">버튼을 눌러 킬 순간을 소환하세요</p>
+    </div>
+    <div style="text-align:center;margin-top:16px;">
+      <button class="btn-random" onclick="showRandomKill()">🔫 킬 소환</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>섭라 존윅 킬 카운터</p>
+  </footer>
+</div>
+
+<script>
+  let allKills = [], filteredKills = [], minDate = '', maxDate = '';
+
+  function init() {
+    if (typeof CHAT_DATA === 'undefined' || !CHAT_DATA.kills) {
+      document.getElementById('leaderboard').innerHTML = '<div class="empty-state">⚠️ chatdata.js 파일이 없습니다.</div>';
+      return;
+    }
+    allKills = CHAT_DATA.kills;
+    document.getElementById('updatedAt').textContent = `업데이트: ${CHAT_DATA.updatedAt}`;
+
+    if (allKills.length > 0) {
+      const dates = allKills.map(k => k.date).sort();
+      minDate = dates[0];
+      maxDate = dates[dates.length - 1];
+      document.getElementById('dataRange').textContent = `${fmt(minDate)} ~ ${fmt(maxDate)}`;
+      document.getElementById('dateFrom').value = minDate;
+      document.getElementById('dateTo').value = maxDate;
+    }
+    applyFilter();
+  }
+
+  function fmt(d) {
+    return d.replace(/^(\d{4})-(\d{2})-(\d{2})$/, '$1.$2.$3');
+  }
+
+  function applyFilter() {
+    const from = document.getElementById('dateFrom').value;
+    const to   = document.getElementById('dateTo').value;
+    filteredKills = (from && to) ? allKills.filter(k => k.date >= from && k.date <= to) : [...allKills];
+    renderLeaderboard();
+  }
+
+  function resetFilter() {
+    document.getElementById('dateFrom').value = minDate;
+    document.getElementById('dateTo').value   = maxDate;
+    document.querySelectorAll('.quick-btn').forEach(b => b.classList.remove('active'));
+    applyFilter();
+  }
+
+  function setQuick(days, btn) {
+    const to = new Date(), from = new Date();
+    from.setDate(to.getDate() - days + 1);
+    document.getElementById('dateFrom').value = fmtDate(from);
+    document.getElementById('dateTo').value   = fmtDate(to);
+    setActive(btn); applyFilter();
+  }
+  function setThisMonth(btn) {
+    const n = new Date();
+    document.getElementById('dateFrom').value = fmtDate(new Date(n.getFullYear(), n.getMonth(), 1));
+    document.getElementById('dateTo').value   = fmtDate(new Date(n.getFullYear(), n.getMonth()+1, 0));
+    setActive(btn); applyFilter();
+  }
+  function setLastMonth(btn) {
+    const n = new Date();
+    document.getElementById('dateFrom').value = fmtDate(new Date(n.getFullYear(), n.getMonth()-1, 1));
+    document.getElementById('dateTo').value   = fmtDate(new Date(n.getFullYear(), n.getMonth(), 0));
+    setActive(btn); applyFilter();
+  }
+  function setActive(btn) {
+    document.querySelectorAll('.quick-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  function fmtDate(d) { return d.toISOString().slice(0,10); }
+
+  function renderLeaderboard() {
+    const board = document.getElementById('leaderboard');
+    const stats = {};
+    filteredKills.forEach(k => { stats[k.killer] = (stats[k.killer] || 0) + 1; });
+    const sorted = Object.entries(stats).sort((a,b) => b[1]-a[1]).slice(0,10);
+
+    document.getElementById('totalKills').textContent = filteredKills.length;
+
+    if (sorted.length === 0) {
+      board.innerHTML = '<div class="empty-state">해당 기간에 킬 기록이 없습니다.</div>';
+      return;
+    }
+    const maxK = sorted[0][1];
+
+    board.innerHTML = sorted.map(([name, count], i) => {
+      const rank = i + 1;
+      const pct  = Math.round(count / maxK * 100);
+      let rdisp  = rank;
+      if (rank===1) rdisp = `<span class="rank-crown">👑</span>1`;
+      else if (rank===2) rdisp = `<span class="rank-crown">🥈</span>2`;
+      else if (rank===3) rdisp = `<span class="rank-crown">🥉</span>3`;
+      return `
+        <div class="rank-item" data-rank="${rank}" style="animation-delay:${i*80}ms">
+          <div class="kill-bar" style="width:${pct}%"></div>
+          <div class="rank-number">${rdisp}</div>
+          <div class="rank-info">
+            <div class="rank-name">${esc(name)}</div>
+            <div class="rank-bar-wrap"><div class="rank-bar-fill" data-pct="${pct}" style="width:0%"></div></div>
+          </div>
+          <div class="rank-kills">${count}<div class="rank-kills-unit">킬</div></div>
+        </div>`;
+    }).join('');
+
+    requestAnimationFrame(() => setTimeout(() => {
+      document.querySelectorAll('.rank-bar-fill').forEach(el => { el.style.width = el.dataset.pct + '%'; });
+    }, 100));
+  }
+
+  function showRandomKill() {
+    if (!filteredKills.length) {
+      document.getElementById('randomCard').innerHTML = '<p class="placeholder-text">해당 기간에 킬 기록이 없습니다.</p>';
+      return;
+    }
+    const card = document.getElementById('randomCard');
+    card.style.opacity = '0';
+    setTimeout(() => {
+      const k = filteredKills[Math.floor(Math.random() * filteredKills.length)];
+      const dateStr = k.date.replace(/-/g, '.') + ' ' + k.time;
+      card.innerHTML = `
+        <div class="random-killer">🔫 ${esc(k.killer)}</div>
+        <div class="random-message-box">${esc(k.message)}</div>
+        <div class="random-arrow">↓</div>
+        <div class="random-exited">🚪 <span class="exited-name">${esc(k.exited)}</span>님이 나갔습니다</div>
+        <div class="random-meta">${dateStr}</div>`;
+      card.style.opacity = '1';
+    }, 300);
+  }
+
+  function esc(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  document.getElementById('dateFrom').addEventListener('change', () => {
+    document.querySelectorAll('.quick-btn').forEach(b => b.classList.remove('active'));
+  });
+  document.getElementById('dateTo').addEventListener('change', () => {
+    document.querySelectorAll('.quick-btn').forEach(b => b.classList.remove('active'));
+  });
+  document.addEventListener('keydown', e => { if (e.key==='Enter') applyFilter(); });
+
+  init();
+</script>
+</body>
+</html>
