@@ -259,11 +259,10 @@
       <button class="btn-reset" onclick="resetFilter()">전체</button>
     </div>
     <div class="quick-filters">
-      <button class="quick-btn" onclick="setQuick(7,this)">최근 7일</button>
-      <button class="quick-btn" onclick="setQuick(30,this)">최근 30일</button>
-      <button class="quick-btn" onclick="setQuick(90,this)">최근 3개월</button>
       <button class="quick-btn" onclick="setThisMonth(this)">이번 달</button>
       <button class="quick-btn" onclick="setLastMonth(this)">지난 달</button>
+      <button class="quick-btn" onclick="setQuick(90,this)">최근 3개월</button>
+      <button class="quick-btn" onclick="setLastYear(this)">최근 1년</button>
     </div>
   </section>
 
@@ -369,11 +368,24 @@
     document.getElementById('dateTo').value   = fmtDate(new Date(n.getFullYear(), n.getMonth(), 0));
     setActive(btn); applyFilter();
   }
+  function setLastYear(btn) {
+    const n = new Date();
+    const from = new Date(n.getFullYear() - 1, n.getMonth(), n.getDate());
+    document.getElementById('dateFrom').value = fmtDate(from);
+    document.getElementById('dateTo').value   = fmtDate(n);
+    setActive(btn); applyFilter();
+  }
   function setActive(btn) {
     document.querySelectorAll('.quick-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
   }
-  function fmtDate(d) { return d.toISOString().slice(0,10); }
+  // toISOString()은 UTC 기준이라 KST(+9)에서 날짜가 하루 밀림 → 로컬 날짜로 직접 포맷
+  function fmtDate(d) {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  }
 
   function renderLeaderboard() {
     const board = document.getElementById('leaderboard');
@@ -422,12 +434,34 @@
     card.style.opacity = '0';
     setTimeout(() => {
       const k = filteredKills[Math.floor(Math.random() * filteredKills.length)];
+      
+      const group = filteredKills.filter(x =>
+        x.killer === k.killer && x.date === k.date &&
+        x.time === k.time && x.message === k.message
+      );
       const dateStr = k.date.replace(/-/g, '.') + ' ' + k.time;
+      const exitedHTML = group.map(x =>
+        `<span style="display:inline-block;margin:2px 4px;">🚪 <span class="exited-name">${esc(x.exited)}</span>님이 나갔습니다</span>`
+      ).join('<br>');
+
+      // 멀티킬 라벨 로직 확장
+      let multiLabelText = '';
+      if (group.length === 2) multiLabelText = '💀 DOUBLE KILL';
+      else if (group.length === 3) multiLabelText = '💀 TRIPLE KILL';
+      else if (group.length === 4) multiLabelText = '💀 QUADRA KILL';
+      else if (group.length === 5) multiLabelText = '💀 PENTA KILL';
+      else if (group.length > 5) multiLabelText = `💀 ULTRA KILL (${group.length} KILLS)`;
+
+      const multiLabel = multiLabelText 
+        ? `<div style="font-size:11px;color:var(--red-bright);letter-spacing:2px;margin-bottom:-4px;">${multiLabelText}</div>`
+        : '';
+
       card.innerHTML = `
+        ${multiLabel}
         <div class="random-killer">🔫 ${esc(k.killer)}</div>
         <div class="random-message-box">${esc(k.message)}</div>
         <div class="random-arrow">↓</div>
-        <div class="random-exited">🚪 <span class="exited-name">${esc(k.exited)}</span>님이 나갔습니다</div>
+        <div class="random-exited">${exitedHTML}</div>
         <div class="random-meta">${dateStr}</div>`;
       card.style.opacity = '1';
     }, 300);

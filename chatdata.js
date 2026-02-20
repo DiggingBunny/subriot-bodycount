@@ -1,9 +1,9 @@
 // 섭라 존윅 킬 카운터 - 자동 생성된 데이터
-// 생성: 2026년 02월 18일 21:15
+// 생성: 2026년 02월 20일 22:09
 // 로직: 누군가 나갔을 때 직전에 메시지를 보낸 사람이 킬 획득
 
 const CHAT_DATA = {
-  updatedAt: "2026년 02월 18일 21:15",
+  updatedAt: "2026년 02월 20일 22:09",
   kills: [
   {
     "date": "2025-04-18",
@@ -168,8 +168,8 @@ const CHAT_DATA = {
   {
     "date": "2025-04-21",
     "time": "22:01",
-    "killer": "미진",
-    "message": "가야겠다",
+    "killer": "(알 수 없음)",
+    "message": "예매 35000/현매 40000",
     "exited": "양게장",
     "killCount": 1
   },
@@ -1006,6 +1006,14 @@ const CHAT_DATA = {
     "killCount": 1
   },
   {
+    "date": "2025-06-16",
+    "time": "23:59",
+    "killer": "효래",
+    "message": "다들 조심귀가 하십시오!",
+    "exited": "Q",
+    "killCount": 1
+  },
+  {
     "date": "2025-06-17",
     "time": "08:07",
     "killer": "땅파는토끼",
@@ -1363,6 +1371,14 @@ const CHAT_DATA = {
     "killer": "준형",
     "message": "동영상",
     "exited": "초사",
+    "killCount": 1
+  },
+  {
+    "date": "2025-06-23",
+    "time": "23:51",
+    "killer": "라따뚜이",
+    "message": "박근홍님 보컬레슨하시네유",
+    "exited": "보이",
     "killCount": 1
   },
   {
@@ -4502,14 +4518,6 @@ const CHAT_DATA = {
     "killCount": 1
   },
   {
-    "date": "2025-11-07",
-    "time": "22:30",
-    "killer": "준형",
-    "message": "대담하시다... 810명 방에서...",
-    "exited": "[쿤] [오후 10:30] sunpal",
-    "killCount": 1
-  },
-  {
     "date": "2025-11-08",
     "time": "03:19",
     "killer": "썸머",
@@ -5662,6 +5670,14 @@ const CHAT_DATA = {
     "killCount": 1
   },
   {
+    "date": "2026-01-30",
+    "time": "23:34",
+    "killer": "스타피쉬",
+    "message": "스레드는 대댓글이 안 되나",
+    "exited": "하품하는 죠르디",
+    "killCount": 1
+  },
+  {
     "date": "2026-01-31",
     "time": "02:35",
     "killer": "짐자무식",
@@ -6003,6 +6019,46 @@ const CHAT_DATA = {
     "killer": "크어어엉",
     "message": "파인애플피자 vs 파인애플타코",
     "exited": "우는 라이언",
+    "killCount": 1
+  },
+  {
+    "date": "2026-02-20",
+    "time": "08:13",
+    "killer": "raykim",
+    "message": "이모티콘",
+    "exited": "건방진 제이지",
+    "killCount": 1
+  },
+  {
+    "date": "2026-02-20",
+    "time": "14:31",
+    "killer": "효래",
+    "message": "辛하하",
+    "exited": "듀,,",
+    "killCount": 1
+  },
+  {
+    "date": "2026-02-20",
+    "time": "14:33",
+    "killer": "효래",
+    "message": "보컬로이드 MD도 파네요. 매장에서 파돌리기송이랑 뽀삐뽀삐뽀 뽀삣뽀 노래 주구장창 틀어주십니다.",
+    "exited": "도군",
+    "killCount": 1
+  },
+  {
+    "date": "2026-02-20",
+    "time": "14:52",
+    "killer": "sunpal",
+    "message": "낼 올라가시나",
+    "exited": "티비 보는 라이언",
+    "killCount": 1
+  },
+  {
+    "date": "2026-02-20",
+    "time": "18:37",
+    "killer": "펄프맨",
+    "message": "아 인스타에",
+    "exited": "흐물한 어피치",
     "killCount": 1
   }
 ]
