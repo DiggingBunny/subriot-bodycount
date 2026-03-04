@@ -10,7 +10,7 @@
 import re
 import sys
 import json
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 
 # ==============================
 # 설정
@@ -155,7 +155,8 @@ def main():
     dates = [k["date"] for k in kills]
     print(f"\n📅 데이터 기간: {min(dates)} ~ {max(dates)}")
 
-    updated_at = datetime.now().strftime("%Y년 %m월 %d일 %H:%M")
+    kst = timezone(timedelta(hours=9))
+    updated_at = datetime.now(kst).strftime("%Y년 %m월 %d일 %H:%M")
     output = f"""// 섭라 존윅 킬 카운터 - 자동 생성된 데이터
 // 생성: {updated_at}
 // 로직: 누군가 나갔을 때 직전에 메시지를 보낸 사람이 킬 획득
