@@ -1,9 +1,9 @@
 // 섭라 존윅 킬 카운터 - 자동 생성된 데이터
-// 생성: 2026년 02월 20일 22:09
+// 생성: 2026년 03월 04일 12:39
 // 로직: 누군가 나갔을 때 직전에 메시지를 보낸 사람이 킬 획득
 
 const CHAT_DATA = {
-  updatedAt: "2026년 02월 20일 22:09",
+  updatedAt: "2026년 03월 04일 12:39",
   kills: [
   {
     "date": "2025-04-18",
@@ -962,7 +962,7 @@ const CHAT_DATA = {
     "time": "12:10",
     "killer": "라따뚜이",
     "message": "세이브 어스",
-    "exited": "실렝",
+    "exited": "고니나노",
     "killCount": 1
   },
   {
@@ -1488,7 +1488,7 @@ const CHAT_DATA = {
   {
     "date": "2025-06-27",
     "time": "01:41",
-    "killer": "보나맘(609)",
+    "killer": "정보나(609)",
     "message": "제가 20대? 부터 좋아했는데  요새 20~30대도 팬이많은거보면 신기하기도해요",
     "exited": "Shy Ryan",
     "killCount": 1
@@ -2066,7 +2066,7 @@ const CHAT_DATA = {
     "time": "17:48",
     "killer": "이찬기",
     "message": "델리스파이스 안녕 비밀의 계곡 헤줬으면",
-    "exited": "무무",
+    "exited": "하트 든 춘식이",
     "killCount": 1
   },
   {
@@ -4114,7 +4114,7 @@ const CHAT_DATA = {
     "time": "15:03",
     "killer": "수 SOO",
     "message": "?????????",
-    "exited": "땅콩사과",
+    "exited": "도시락",
     "killCount": 1
   },
   {
@@ -6059,6 +6059,294 @@ const CHAT_DATA = {
     "killer": "펄프맨",
     "message": "아 인스타에",
     "exited": "흐물한 어피치",
+    "killCount": 1
+  },
+  {
+    "date": "2026-02-21",
+    "time": "00:58",
+    "killer": "준형",
+    "message": "감동적이네요",
+    "exited": "사야",
+    "killCount": 1
+  },
+  {
+    "date": "2026-02-21",
+    "time": "13:15",
+    "killer": "Mino",
+    "message": "핑크앨범 정주행하는데",
+    "exited": "왕따오지",
+    "killCount": 1
+  },
+  {
+    "date": "2026-02-21",
+    "time": "16:05",
+    "killer": "수달",
+    "message": "보리스 가신분들 엠디 어떤지 말씀 부탁들입니다  ,,,,,",
+    "exited": "부끄러운 앙몬드",
+    "killCount": 1
+  },
+  {
+    "date": "2026-02-21",
+    "time": "17:02",
+    "killer": "펄프맨",
+    "message": "여기야요",
+    "exited": "페페",
+    "killCount": 1
+  },
+  {
+    "date": "2026-02-21",
+    "time": "18:21",
+    "killer": "raykim",
+    "message": "바람이 불어서 밤되니 살짝 쌀쌀하네요",
+    "exited": "배부른 춘식이",
+    "killCount": 1
+  },
+  {
+    "date": "2026-02-21",
+    "time": "19:44",
+    "killer": "네비올로로",
+    "message": "이모티콘",
+    "exited": "ㅇㅅㅇ",
+    "killCount": 1
+  },
+  {
+    "date": "2026-02-22",
+    "time": "01:23",
+    "killer": "효래",
+    "message": "반갑습니다!",
+    "exited": "배부른 춘식이",
+    "killCount": 1
+  },
+  {
+    "date": "2026-02-22",
+    "time": "01:59",
+    "killer": "sunpal",
+    "message": "@Mino",
+    "exited": "준서포",
+    "killCount": 1
+  },
+  {
+    "date": "2026-02-22",
+    "time": "13:06",
+    "killer": "땅파는토끼",
+    "message": "크으으으~~~",
+    "exited": "슬픈 어피치",
+    "killCount": 1
+  },
+  {
+    "date": "2026-02-22",
+    "time": "14:06",
+    "killer": "마스터키",
+    "message": "와... 나 하나도 이해 못했어",
+    "exited": "수달",
+    "killCount": 1
+  },
+  {
+    "date": "2026-02-22",
+    "time": "15:17",
+    "killer": "Jin",
+    "message": "이모티콘",
+    "exited": "팝콘 먹는 춘식이",
+    "killCount": 1
+  },
+  {
+    "date": "2026-02-22",
+    "time": "16:02",
+    "killer": "삐약삐약",
+    "message": "마음에 마군이가 그득하시네",
+    "exited": "사랑은파랑",
+    "killCount": 1
+  },
+  {
+    "date": "2026-02-22",
+    "time": "20:41",
+    "killer": "사우스코리아인디",
+    "message": "https://youtu.be/Py-Q7s7a5aE",
+    "exited": "류경모",
+    "killCount": 1
+  },
+  {
+    "date": "2026-02-22",
+    "time": "21:11",
+    "killer": "네비올로로",
+    "message": "샵검색: #왕좌의 게임",
+    "exited": "고도",
+    "killCount": 1
+  },
+  {
+    "date": "2026-02-22",
+    "time": "21:28",
+    "killer": "손손",
+    "message": "제가 한건 아니지만...",
+    "exited": "스카피",
+    "killCount": 1
+  },
+  {
+    "date": "2026-02-22",
+    "time": "22:01",
+    "killer": "수달",
+    "message": "진짜 지독하네요 2022년에 포텟이랑 싱글내고 ㅋㅋㅋㅋㅋㅋㅋㅋ",
+    "exited": "미밈",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-02",
+    "time": "04:02",
+    "killer": "효래",
+    "message": "무료로 차 한잔 뽑아마실수 있네요. 1천원 셀프기부",
+    "exited": "니어",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-02",
+    "time": "08:58",
+    "killer": "마스터키",
+    "message": "큰일은 퍼기경의 키즈들이 해내는군요!",
+    "exited": "raw",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-02",
+    "time": "13:47",
+    "killer": "sunpal",
+    "message": "무슨, 프로토스들 마냥 수정에 기억을 명확하게 퐈아아악 담아둘수 있다면 참 좋겠습니다만 아직은 기술력이...... ;ㅅ;",
+    "exited": "유현규",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-02",
+    "time": "14:01",
+    "killer": "마스터키",
+    "message": "구우우우웃모닝",
+    "exited": "GY/문가연",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-02",
+    "time": "15:59",
+    "killer": "인더시티",
+    "message": "ㅋㅋㅋㅋㅋ ㅠㅠㅠㅠㅠ",
+    "exited": "토께",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-02",
+    "time": "20:25",
+    "killer": "밍기",
+    "message": "케익이지롱",
+    "exited": "지미",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-02",
+    "time": "22:12",
+    "killer": "라이브바이닐",
+    "message": "2NAV 모자 쓰고 계시네요",
+    "exited": "문짝",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-03",
+    "time": "09:46",
+    "killer": "짐자무식",
+    "message": "인신공격 자제해주세요",
+    "exited": "간식 먹는 프렌즈",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-03",
+    "time": "14:46",
+    "killer": "Mino",
+    "message": "14년도 파주버스에서",
+    "exited": "준서포",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-03",
+    "time": "14:50",
+    "killer": "오이비누 🥒🧼",
+    "message": "네?",
+    "exited": "만찐두빵",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-03",
+    "time": "19:10",
+    "killer": "사우스코리아인디",
+    "message": "근데 마르멜로란 팀에서 활동한 멤버가 랩코어 밴드로 합류한게 신기하네요",
+    "exited": "그린루트/박하랑",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-03",
+    "time": "19:58",
+    "killer": "sunpal",
+    "message": "...참 단순한 ;ㅁ;",
+    "exited": "정의의사람들",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-04",
+    "time": "10:24",
+    "killer": "오이비누 🥒🧼",
+    "message": "맞을래요 물어보는게 웃기네요 ㅋㅋㅋㅋㅋㅋ",
+    "exited": "Bowty",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-04",
+    "time": "11:17",
+    "killer": "펄프맨",
+    "message": "ㅋㅋㅋㅋ",
+    "exited": "힝",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-04",
+    "time": "12:13",
+    "killer": "Katie",
+    "message": "트럼프 : 전쟁이 끝나면 유가는 안정될 것",
+    "exited": "yeonwoo",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-04",
+    "time": "15:28",
+    "killer": "짐자무식",
+    "message": "지글지글한 기타와 드림팝",
+    "exited": "커밍투유",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-04",
+    "time": "15:30",
+    "killer": "짐자무식",
+    "message": "드림팝 1킬",
+    "exited": "지인",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-04",
+    "time": "20:08",
+    "killer": "sunpal",
+    "message": "그래서도 축구도 나름 익스트림이긴 함둥",
+    "exited": "저마다",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-04",
+    "time": "21:26",
+    "killer": "썸머",
+    "message": "수달님이 해줘요",
+    "exited": "드렁큰기타",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-04",
+    "time": "21:30",
+    "killer": "raykim",
+    "message": "샵검색: #진로 도수",
+    "exited": "티비 보는 라이언",
     "killCount": 1
   }
 ]
