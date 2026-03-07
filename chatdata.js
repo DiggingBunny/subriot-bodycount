@@ -1,9 +1,9 @@
 // 섭라 존윅 킬 카운터 - 자동 생성된 데이터
-// 생성: 2026년 03월 04일 12:48
+// 생성: 2026년 03월 07일 22:52
 // 로직: 누군가 나갔을 때 직전에 메시지를 보낸 사람이 킬 획득
 
 const CHAT_DATA = {
-  updatedAt: "2026년 03월 04일 12:48",
+  updatedAt: "2026년 03월 07일 22:52",
   kills: [
   {
     "date": "2025-04-18",
@@ -1786,7 +1786,7 @@ const CHAT_DATA = {
     "time": "15:18",
     "killer": "Cpt. APACHE (아파치)",
     "message": "샵검색: #개틀링 물총",
-    "exited": "으쓱으쓱 어피치",
+    "exited": "누워있는 죠르디",
     "killCount": 1
   },
   {
@@ -5000,9 +5000,9 @@ const CHAT_DATA = {
   {
     "date": "2025-12-21",
     "time": "08:20",
-    "killer": ".",
+    "killer": "편도체조절",
     "message": "📍시각예술 문화생활 교류공간📍",
-    "exited": ".",
+    "exited": "편도체조절",
     "killCount": 1
   },
   {
@@ -6347,6 +6347,182 @@ const CHAT_DATA = {
     "killer": "raykim",
     "message": "샵검색: #진로 도수",
     "exited": "티비 보는 라이언",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-04",
+    "time": "22:54",
+    "killer": "briz",
+    "message": "난 한번도 킬 안떴네 히힣",
+    "exited": "삐약삐약",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-05",
+    "time": "02:12",
+    "killer": "효래",
+    "message": "마감곡은 오늘 특집에 걸맞게 JP",
+    "exited": "편도체조절",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-05",
+    "time": "11:55",
+    "killer": "손손",
+    "message": "킨텍스 근처는 아니에요ㅠㅠ",
+    "exited": "인사하는 스카피",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-05",
+    "time": "12:30",
+    "killer": "딤프릭스",
+    "message": "기서들버님간",
+    "exited": "이나나",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-05",
+    "time": "14:39",
+    "killer": "헤비메틀",
+    "message": "타이레놀 못드리겠네요",
+    "exited": "커밍투유",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-05",
+    "time": "16:48",
+    "killer": "스타피쉬",
+    "message": "ㅋㅋㅋ",
+    "exited": "라피나",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-05",
+    "time": "20:16",
+    "killer": "효래",
+    "message": "'ㅅ'",
+    "exited": "누워있는 라이언",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-05",
+    "time": "22:39",
+    "killer": "네비올로로",
+    "message": "벌써 구독자 103만 돌파..",
+    "exited": "볼 찌르는 라이언",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-06",
+    "time": "00:01",
+    "killer": "헤비메틀",
+    "message": "두분",
+    "exited": "사워",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-06",
+    "time": "00:53",
+    "killer": "스벅",
+    "message": "오",
+    "exited": "우는 라이언",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-06",
+    "time": "12:44",
+    "killer": "이온",
+    "message": "https://youtu.be/RNBiaZbFGII?si=xn0u4GZ-2Hxr0zTU",
+    "exited": "로로",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-06",
+    "time": "13:11",
+    "killer": "수달",
+    "message": "아이작 그립다",
+    "exited": "고시아",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-06",
+    "time": "14:06",
+    "killer": "썸머",
+    "message": "안녕하세용",
+    "exited": "인사하는 춘식이",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-06",
+    "time": "14:44",
+    "killer": "짐자무식",
+    "message": "별내용",
+    "exited": "Momo",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-06",
+    "time": "16:48",
+    "killer": "마스터키",
+    "message": "하하하",
+    "exited": "한숨 쉬는 죠르디",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-06",
+    "time": "17:29",
+    "killer": "오이비누 🥒🧼",
+    "message": "좋아하시는 음악장르가 있으신가용",
+    "exited": "하트 든 춘식이",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-06",
+    "time": "18:27",
+    "killer": "이온",
+    "message": "https://youtu.be/62rgRxlM4-E?si=cF6-dvC64S5CYn5T",
+    "exited": "Abbos",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-06",
+    "time": "22:10",
+    "killer": "땅파는토끼",
+    "message": "넵 ㅋㅋㅋㅋㅋㅋㅋ",
+    "exited": "배부른 춘식이",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-07",
+    "time": "00:44",
+    "killer": "Katie",
+    "message": "저한테는 봄동은 좀 비빔밥 특화인 느낌",
+    "exited": "누워있는 죠르디",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-07",
+    "time": "05:17",
+    "killer": "킨더조이",
+    "message": "힐렐 슬로박..?",
+    "exited": "🦋클라라 MJ🦋",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-07",
+    "time": "13:00",
+    "killer": "지생충",
+    "message": "노래방에서 뛰는거 국룰 아닌가요",
+    "exited": "부비",
+    "killCount": 1
+  },
+  {
+    "date": "2026-03-07",
+    "time": "22:13",
+    "killer": "짐자무식",
+    "message": "샵검색: #일본 한국",
+    "exited": "하트 든 춘식이",
     "killCount": 1
   }
 ]
