@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="섭라 존윅 킬 카운터" />
+  <meta property="og:description" content="섭라 존윅 채팅방의 킬 기록 통계" />
+  <meta property="og:image" content="https://diggingbunny.github.io/subriot-bodycount/thumbnail.png" />
+  <meta property="og:url" content="https://diggingbunny.github.io/subriot-bodycount/" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>섭라 존윅 킬 카운터</title>
@@ -232,6 +237,89 @@
       letter-spacing: 0.5px;
       opacity: 0.8;
     }
+
+    /* ── 닉네임 킬 조회 ── */
+    .lookup-section {
+      background:var(--bg2); border:1px solid var(--border); border-radius:2px;
+      padding:28px 24px; margin-bottom:40px;
+      display:flex; flex-direction:column; gap:18px;
+    }
+    .lookup-search-wrap {
+      position:relative;
+    }
+    .lookup-search-wrap input {
+      background:var(--bg3); border:1px solid var(--border); color:var(--text);
+      padding:11px 14px 11px 38px; font-family:'Noto Sans KR',sans-serif; font-size:14px;
+      border-radius:2px; outline:none; width:100%;
+      transition:border-color .2s;
+      -webkit-text-fill-color: var(--text);
+    }
+    .lookup-search-wrap input::placeholder { color:var(--text-dim); }
+    .lookup-search-wrap input:hover,
+    .lookup-search-wrap input:focus { border-color:var(--gold); }
+    .lookup-search-icon {
+      position:absolute; left:12px; top:50%; transform:translateY(-50%);
+      font-size:15px; pointer-events:none; opacity:.5;
+    }
+    .lookup-dropdown-wrap {
+      position:relative;
+    }
+    .lookup-dropdown-wrap input {
+      background:var(--bg3); border:1px solid var(--border); color:var(--text);
+      padding:11px 36px 11px 14px; font-family:'Noto Sans KR',sans-serif; font-size:14px;
+      border-radius:2px; outline:none; width:100%;
+      transition:border-color .2s; cursor:pointer;
+      -webkit-text-fill-color: var(--text);
+    }
+    .lookup-dropdown-wrap input::placeholder { color:var(--text-dim); }
+    .lookup-dropdown-wrap input:hover,
+    .lookup-dropdown-wrap input:focus { border-color:var(--gold); }
+    .lookup-dropdown-arrow {
+      position:absolute; right:12px; top:50%; transform:translateY(-50%);
+      font-size:11px; color:var(--text-dim); pointer-events:none;
+      transition:transform .2s;
+    }
+    .lookup-dropdown-wrap.open .lookup-dropdown-arrow { transform:translateY(-50%) rotate(180deg); }
+    .lookup-dropdown-list {
+      display:none; position:absolute; top:calc(100% + 4px); left:0; right:0; z-index:100;
+      background:var(--bg3); border:1px solid var(--gold); border-radius:2px;
+      max-height:220px; overflow-y:auto;
+    }
+    .lookup-dropdown-list.open { display:block; animation:slideIn .15s ease; }
+    .lookup-dropdown-list::-webkit-scrollbar { width:4px; }
+    .lookup-dropdown-list::-webkit-scrollbar-track { background:var(--bg2); }
+    .lookup-dropdown-list::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+    .dropdown-item {
+      padding:10px 14px; font-size:13px; color:var(--text-dim); cursor:pointer;
+      transition:background .1s, color .1s; font-family:'Noto Sans KR',sans-serif;
+      border-bottom:1px solid var(--border);
+    }
+    .dropdown-item:last-child { border-bottom:none; }
+    .dropdown-item:hover { background:rgba(201,168,76,.08); color:var(--text); }
+    .dropdown-item.selected { background:rgba(201,168,76,.12); color:var(--gold-light); font-weight:700; }
+    .dropdown-empty { padding:12px 14px; font-size:13px; color:var(--text-dim); text-align:center; }
+    .lookup-result {
+      display:none;
+      background:var(--bg3); border:1px solid var(--border); border-radius:2px;
+      padding:20px 24px;
+      flex-direction:row; align-items:center; justify-content:space-between; gap:16px;
+    }
+    .lookup-result.visible { display:flex; animation:slideIn .3s ease; }
+    .lookup-result-name { font-size:16px; font-weight:700; color:var(--text); }
+    .lookup-result-sub { font-size:11px; color:var(--text-dim); margin-top:3px; letter-spacing:.5px; }
+    .lookup-result-count {
+      font-family:'Black Han Sans',sans-serif; font-size:40px; color:var(--red-bright);
+      text-align:right; line-height:1;
+      text-shadow:0 0 20px rgba(200,40,40,.4);
+      white-space:nowrap;
+    }
+    .lookup-result-unit { font-size:14px; color:var(--text-dim); font-family:'Noto Sans KR',sans-serif; font-weight:300; margin-left:3px; }
+    .lookup-empty { text-align:center; color:var(--text-dim); font-size:13px; padding:8px 0; letter-spacing:.5px; }
+
+    @media(max-width:600px){
+      .lookup-result { flex-direction:column; align-items:flex-start; gap:12px; }
+      .lookup-result-count { font-size:36px; }
+    }
   </style>
 </head>
 <body>
@@ -296,20 +384,51 @@
 
   <div class="divider"></div>
 
+  <div class="divider"></div>
+
   <!-- 랜덤 킬 현장 -->
   <section>
     <div class="section-header">
       <span class="section-title">🎲 랜덤 킬 현장</span>
       <div class="section-line"></div>
     </div>
-    
     <p class="section-desc">※ 설정한 조회 기간 내의 킬만 소환됩니다.</p>
-
     <div class="random-card" id="randomCard">
       <p class="placeholder-text">버튼을 눌러 킬 순간을 소환하세요</p>
     </div>
     <div style="text-align:center;margin-top:16px;">
       <button class="btn-random" onclick="showRandomKill()">🔫 킬 소환</button>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 닉네임 킬 조회 -->
+  <section>
+    <div class="section-header">
+      <span class="section-title">🔍 닉네임 킬 조회</span>
+      <div class="section-line"></div>
+    </div>
+    <p class="section-desc">※ 설정 기간의 킬수를 조회합니다.</p>
+
+    <div class="lookup-section">
+      <div class="lookup-dropdown-wrap" id="lookupDropdownWrap">
+        <input type="text" id="nickSearch" placeholder="닉네임을 검색하거나 선택하세요..." oninput="filterDropdown()" onfocus="openDropdown()" autocomplete="off" readonly />
+        <span class="lookup-dropdown-arrow">▼</span>
+        <div class="lookup-dropdown-list" id="dropdownList">
+          <div class="dropdown-empty">기간을 선택하고 조회 버튼을 눌러주세요.</div>
+        </div>
+      </div>
+      <div class="lookup-result" id="lookupResult">
+        <div>
+          <div class="lookup-result-name" id="lookupName">—</div>
+          <div class="lookup-result-sub" id="lookupPeriod">—</div>
+        </div>
+        <div>
+          <span class="lookup-result-count" id="lookupCount">0</span>
+          <span class="lookup-result-unit">킬</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -341,6 +460,8 @@
     document.getElementById('totalKills').textContent = '-';
     document.getElementById('leaderboard').innerHTML =
       '<div class="empty-state">기간을 선택하고 조회 버튼을 눌러주세요.</div>';
+    document.getElementById('nickList').innerHTML =
+      '<div class="lookup-empty">기간을 선택하고 조회 버튼을 눌러주세요.</div>';
   }
 
   function fmt(d) {
@@ -352,6 +473,7 @@
     const to   = document.getElementById('dateTo').value;
     filteredKills = (from && to) ? allKills.filter(k => k.date >= from && k.date <= to) : [...allKills];
     renderLeaderboard();
+    buildNickList();
   }
 
   function resetFilter() {
@@ -398,6 +520,87 @@
     const day = String(d.getDate()).padStart(2, '0');
     return `${y}-${m}-${day}`;
   }
+
+  /* ── 닉네임 조회 드롭다운 ── */
+  let allNicknames = [];
+  let selectedNick = '';
+
+  function buildNickList() {
+    const stats = {};
+    filteredKills.forEach(k => { stats[k.killer] = (stats[k.killer] || 0) + 1; });
+    allNicknames = Object.keys(stats).sort((a,b) => a.localeCompare(b, 'ko'));
+    renderDropdownItems('');
+    if (selectedNick) showLookupResult(selectedNick);
+    else document.getElementById('lookupResult').classList.remove('visible');
+  }
+
+  function renderDropdownItems(query) {
+    const listEl = document.getElementById('dropdownList');
+    const q = query.trim().toLowerCase();
+    const filtered = q ? allNicknames.filter(n => n.toLowerCase().includes(q)) : allNicknames;
+    if (allNicknames.length === 0) {
+      listEl.innerHTML = '<div class="dropdown-empty">해당 기간에 킬 기록이 없습니다.</div>';
+      return;
+    }
+    if (filtered.length === 0) {
+      listEl.innerHTML = '<div class="dropdown-empty">검색 결과가 없습니다.</div>';
+      return;
+    }
+    listEl.innerHTML = filtered.map(name =>
+      `<div class="dropdown-item${name===selectedNick?' selected':''}" onclick="selectNick(this)" data-name="${esc(name)}">${esc(name)}</div>`
+    ).join('');
+  }
+
+  function openDropdown() {
+    const wrap = document.getElementById('lookupDropdownWrap');
+    const input = document.getElementById('nickSearch');
+    const list  = document.getElementById('dropdownList');
+    // 읽기 전용 해제해서 검색 허용
+    input.removeAttribute('readonly');
+    input.value = '';
+    renderDropdownItems('');
+    wrap.classList.add('open');
+    list.classList.add('open');
+  }
+
+  function filterDropdown() {
+    renderDropdownItems(document.getElementById('nickSearch').value);
+  }
+
+  function closeDropdown() {
+    const wrap  = document.getElementById('lookupDropdownWrap');
+    const input = document.getElementById('nickSearch');
+    const list  = document.getElementById('dropdownList');
+    wrap.classList.remove('open');
+    list.classList.remove('open');
+    // 선택된 값이 있으면 인풋에 표시, 없으면 비움
+    input.value = selectedNick || '';
+    input.setAttribute('readonly', '');
+  }
+
+  function selectNick(el) {
+    const name = allNicknames.find(n => esc(n) === el.dataset.name) || el.dataset.name;
+    selectedNick = name;
+    closeDropdown();
+    showLookupResult(selectedNick);
+  }
+
+  function showLookupResult(name) {
+    const count = filteredKills.filter(k => k.killer === name).length;
+    const from = document.getElementById('dateFrom').value;
+    const to   = document.getElementById('dateTo').value;
+    const periodStr = (from && to) ? `${fmt(from)} ~ ${fmt(to)}` : '전체 기간';
+    document.getElementById('lookupName').textContent = name;
+    document.getElementById('lookupPeriod').textContent = `조회 기간: ${periodStr}`;
+    document.getElementById('lookupCount').textContent = count;
+    document.getElementById('lookupResult').classList.add('visible');
+  }
+
+  // 바깥 클릭 시 드롭다운 닫기
+  document.addEventListener('click', e => {
+    const wrap = document.getElementById('lookupDropdownWrap');
+    if (wrap && !wrap.contains(e.target)) closeDropdown();
+  });
 
   function renderLeaderboard() {
     const board = document.getElementById('leaderboard');
