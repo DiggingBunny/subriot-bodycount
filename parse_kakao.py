@@ -107,6 +107,13 @@ def parse_kakao_txt(filepath):
         # [닉네임][시간] prefix가 없는 순수 시스템 메시지만 여기에 도달
         exit_match = EXIT_PATTERN.match(line)
         if exit_match and last_msg:
+            pass  # 아래에서 처리
+        elif not exit_match and last_msg:
+            # 날짜 헤더도, 채팅 메시지도, 퇴장 메시지도 아닌 줄
+            # → 직전 메시지의 줄바꿈 연속 내용
+            last_msg["message"] += "\n" + line
+
+        if exit_match and last_msg:
             exited_name = exit_match.group(1).strip()
             kills.append({
                 "date":      last_msg["date"],
